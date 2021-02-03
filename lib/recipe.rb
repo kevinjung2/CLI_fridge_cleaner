@@ -21,4 +21,8 @@ class Recipe
   def save
     @@all << self
   end
+
+  def self.titles
+    @@all.collect { |r| r.title }
+  end
 end
