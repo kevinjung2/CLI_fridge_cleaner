@@ -14,6 +14,10 @@ class Recipe
     new.used_ing = hash["usedIngredientCount"]
   end
 
+  def self.new_from_arr_of_hashes(arr_of_hases)
+    arr_of_hases.each { |hash| self.new_from_hash(hash) }
+  end
+
   def save
     @@all << self
   end
