@@ -49,6 +49,23 @@ class Cli
       self.how_many
     else
       Api.get_recipes_from_ing(ing_array, input)
+      self.display_recipe_list
+    end
+
+    def display_recipe_list
+      recipe.titles.each.with_index(1) { |title, inx| puts "#{inx}. #{title}" }
+      self.get_recipe_choice
+    end
+
+    def get_recipe_choice
+      puts "Enter the number of the recipe you would like to see"
+      input = gets.to_i
+      if input.between?(1, Recipe.all.length)
+        Recipe.all[input]
+      else
+        puts "Please enter a number that corresponds to a recipe"
+        self.get_recipe_choice
+      end
     end
   end
   #asks the user which recipe they would like to cook
