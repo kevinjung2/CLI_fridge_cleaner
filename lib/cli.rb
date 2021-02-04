@@ -5,14 +5,13 @@ class Cli
   def initialize
     self.welcome
   end
-
+  #says hello
   def welcome
     puts "Welcome to Fridge-Clear"
     puts "Please enter ingredients that you would like to cook, one at a time. when finished enter 'done'."
     self.get_ingredients
   end
-  #welcomes user to program and asks for ingredients that would like to be cooked
-  #gets users input and shows the user a list of recipes
+  #asks the user which ingredients they would like to cook, and passes them to #how_many
   def get_ingredients
     ing_array = []
     input = gets.strip
@@ -41,7 +40,7 @@ class Cli
       self.how_many(ing_array)
     end
   end
-
+  #asks the user how many recipes they would like to see displayed, and calls the API to get them
   def how_many(ing_array)
     puts "How many recipes would you like to see?"
     input = gets.to_i
@@ -53,12 +52,12 @@ class Cli
       self.display_recipe_list
     end
   end
-
+  #puts the list of recipe names returned from the Api
   def display_recipe_list
     Recipe.titles.each.with_index(1) { |title, inx| puts "#{inx}. #{title}" }
     self.get_recipe_choice
   end
-
+  #asks the user for which recipe they would like to cook
   def get_recipe_choice
     puts "Enter the number of the recipe you would like to see"
     input = gets.to_i
@@ -70,12 +69,12 @@ class Cli
     end
     self.retrieve_recipe
   end
-
+  #sends the choice to the Api to get information
   def retrieve_recipe
     recipe = Api.get_recipe(@selection)
     self.display_recipe(recipe)
   end
-
+  #displays the recipe to the user
   def display_recipe(recipe)
     puts "------------------------------"
     puts "#{recipe.title}"
@@ -87,7 +86,7 @@ class Cli
     puts TTY::Link.link_to("Recipe source link", recipe.recipe_link)
     self.menu
   end
-
+  #displays program menu
   def menu
     puts "Would you like to:"
     puts "1. See the list of recipes"
@@ -96,7 +95,7 @@ class Cli
     puts "4. Quit Fridge Clear"
     self.menu_selection
   end
-
+  #retrieves selection for program menu
   def menu_selection
     input = gets.strip
     case input
@@ -113,6 +112,4 @@ class Cli
       self.menu
     end
   end
-  #returns that recipe
-  #asks if the user would like to see the list of recipes again, put more ingredients in, or exit
 end
