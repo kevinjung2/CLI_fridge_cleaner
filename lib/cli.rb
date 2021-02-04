@@ -61,11 +61,16 @@ class Cli
       puts "Enter the number of the recipe you would like to see"
       input = gets.to_i
       if input.between?(1, Recipe.all.length)
-        Recipe.all[input]
+        selection = Recipe.all[input].id
       else
-        puts "Please enter a number that corresponds to a recipe"
+        puts "That is not a valid choice"
         self.get_recipe_choice
       end
+      self.retrieve_recipe(selection)
+    end
+
+    def retrieve_recipe(recipe_id)
+      Api.get_recipe(recipe_id)
     end
   end
   #asks the user which recipe they would like to cook
