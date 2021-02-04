@@ -54,7 +54,7 @@ class Cli
   end
 
   def display_recipe_list
-    recipe.titles.each.with_index(1) { |title, inx| puts "#{inx}. #{title}" }
+    Recipe.titles.each.with_index(1) { |title, inx| puts "#{inx}. #{title}" }
     self.get_recipe_choice
   end
 
