@@ -29,4 +29,8 @@ class Recipe
   def self.id_from_title(title)
     @@all.find { |r| r.title == title }.id
   end
+
+  def all
+    @@all 
+  end
 end
