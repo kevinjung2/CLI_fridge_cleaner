@@ -30,7 +30,7 @@ class Recipe
     @@all.find { |r| r.title == title }.id
   end
 
-  def all
-    @@all 
+  def self.all
+    @@all
   end
 end
