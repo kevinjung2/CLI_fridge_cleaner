@@ -22,7 +22,7 @@ class Cli
           begin
             raise EmptyUndoError
           rescue EmptyUndoError => error
-            puts EmptyUndoError.message
+            puts error.message
           end
         else
           ing_array.pop
