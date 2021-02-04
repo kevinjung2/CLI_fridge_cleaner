@@ -89,7 +89,7 @@ class Cli
   end
   #sends the choice to the Api to get information
   def retrieve_recipe
-    recipe = Api.get_recipe(@selection)
+    recipe = Api.get_recipe(@selection) unless Recipe.retrieved.include?(@selection)
     self.display_recipe(recipe)
   end
   #displays the recipe to the user

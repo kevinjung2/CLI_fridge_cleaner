@@ -55,4 +55,8 @@ class Recipe
   def self.current
     @@current
   end
+
+  def self.retrieved
+    @@retrieved
+  end
 end
