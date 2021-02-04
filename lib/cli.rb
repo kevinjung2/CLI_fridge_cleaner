@@ -1,3 +1,5 @@
+require_relative('../config/environment')
+
 class Cli
   #initialize a new instance that starts the program
   def initialize
