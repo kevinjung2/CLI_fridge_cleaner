@@ -84,7 +84,19 @@ class Cli
     puts recipe.instructions
     puts "------------------------------"
     puts TTY::Link.link_to("Recipe source link", recipe.recipe_link)
+    self.menu
   end
+
+  def menu
+    puts "Would you like to:"
+    puts "1. See the list of recipes"
+    puts "2. See a recipe again"
+    puts "3. Enter new ingredients"
+    puts "4. Quit Fridge Clear"
+    self.menu_selection
+  end
+
+  
   #returns that recipe
   #asks if the user would like to see the list of recipes again, put more ingredients in, or exit
 end
