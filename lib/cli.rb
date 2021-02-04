@@ -38,6 +38,17 @@ class Cli
       self.how_many(ing_array)
     end
   end
+
+  def how_many(ing_array)
+    puts "How many recipes would you like to see?"
+    input = gets.to_i
+    if input == 0
+      puts "You must see at least one recipe."
+      self.how_many
+    else
+      Api.get_recipes_from_ing(ing_array, input)
+    end
+  end
   #asks the user which recipe they would like to cook
   #returns that recipe
   #asks if the user would like to see the list of recipes again, put more ingredients in, or exit
