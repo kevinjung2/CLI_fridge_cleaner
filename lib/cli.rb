@@ -48,21 +48,22 @@ class Cli
       puts "You must see at least one recipe."
       self.how_many
     else
+      Recipe.current.clear
       Api.get_recipes_from_ing(ing_array, input)
       self.display_recipe_list
     end
   end
   #puts the list of recipe names returned from the Api
   def display_recipe_list
-    Recipe.titles.each.with_index(1) { |title, inx| puts "#{inx}. #{title}" }
+    Recipe.current_titles.each.with_index(1) { |title, inx| puts "#{inx}. #{title}" }
     self.get_recipe_choice
   end
   #asks the user for which recipe they would like to cook
   def get_recipe_choice
     puts "Enter the number of the recipe you would like to see"
     input = gets.to_i
-    if input.between?(1, Recipe.all.length)
-      @selection = Recipe.all[input-1]
+    if input.between?(1, Recipe.current.length)
+      @selection = Recipe.current[input-1]
     else
       puts "That is not a valid choice"
       self.get_recipe_choice

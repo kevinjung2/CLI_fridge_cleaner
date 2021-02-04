@@ -25,6 +25,10 @@ class Recipe
     @@current << self
   end
 
+  def self.current_titles
+    @@current.collect { |r| r.title }
+  end
+
   def self.all_titles
     @@all.collect { |r| r.title }
   end
