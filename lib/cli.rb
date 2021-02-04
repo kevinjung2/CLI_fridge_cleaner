@@ -159,7 +159,7 @@ class Cli
       self.display_recipe(Api.get_recipe(@selection))
     when "4"
       self.get_ingredients
-    when "5" || "quit" || "exit"
+    when "5", "quit", "exit"
       abort("Thank you for using Fridge-Clear")
     else
       puts @@pastel.red("Please enter a number that corresponds to a menu option")
