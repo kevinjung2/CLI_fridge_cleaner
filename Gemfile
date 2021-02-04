@@ -7,7 +7,5 @@ git_source(:github) {|repo_name| "https://github.com/#{repo_name}" }
 # gem "rails"
 
 gem 'httparty'
-
-group :develoment do
-  gem 'pry'
-end
+gem 'tty-link'
+gem 'pry'
