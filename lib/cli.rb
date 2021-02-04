@@ -8,11 +8,11 @@ class Cli
   #says hello
   def welcome
     puts "Welcome to Fridge-Clear"
-    puts "Please enter ingredients that you would like to cook, one at a time. when finished enter 'done'."
     self.get_ingredients
   end
   #asks the user which ingredients they would like to cook, and passes them to #how_many
   def get_ingredients
+    puts "Please enter ingredients that you would like to cook, one at a time. when finished enter 'done'."
     ing_array = []
     input = gets.strip
     while input != "done"
