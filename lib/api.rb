@@ -16,7 +16,7 @@ class Api
       recipe_id = recipe.id
       url = "https://api.spoonacular.com/recipes/#{recipe_id}/information?apiKey=#{API_KEY}&includeNutrition=false"
       response = HTTParty.get(url)
-      current = Recipe.find_by_id(id)
+      current = Recipe.find_by_id(recipe_id)
       current.info_from_hash(response)
       current
     end

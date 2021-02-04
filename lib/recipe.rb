@@ -1,5 +1,5 @@
 class Recipe
-  attr_accessor :title, :id, :used_ing, :recipe_link, :instructions
+  attr_accessor :title, :id, :used_ing, :recipe_link, :instructions, :ingredients
 
   @@all = []
   @@retrieved = []
