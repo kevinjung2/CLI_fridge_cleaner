@@ -64,12 +64,12 @@ class Cli
   end
   #puts the list of current recipe names returned from the Api
   def display_recipe_list
-    Recipe.current_titles.each.with_index(1) { |title, inx| puts @@pastel.cyan.on_magenta("#{inx}. #{title}") }
+    Recipe.current_titles.each.with_index(1) { |title, inx| puts @@pastel.magenta("#{inx}. #{title}") }
     self.get_recipe_choice
   end
   #puts the list of all recipe names returned from the Api
   def display_all_recipe_list
-    Recipe.all_titles.each.with_index(1) { |title, inx| puts @@pastel.cyan.on_magenta("#{inx}. #{title}") }
+    Recipe.all_titles.each.with_index(1) { |title, inx| puts @@pastel.magenta("#{inx}. #{title}") }
     self.get_recipe_choice_from_all
   end
   #asks the user for which recipe they would like to cook
@@ -107,7 +107,7 @@ class Cli
   end
   #displays a list of the recipes already retrieved from the API
   def display_retrieved_recipes
-    Recipe.retrieved_titles.each.with_index(1) { |title, inx| puts @@pastel.cyan.on_magenta("#{inx}. #{title}") }
+    Recipe.retrieved_titles.each.with_index(1) { |title, inx| puts @@pastel.magenta("#{inx}. #{title}") }
     self.get_recipe_choice_from_retrieved
   end
   #asks the user for which recipe they would like to cook from a list of retrieved recipes
