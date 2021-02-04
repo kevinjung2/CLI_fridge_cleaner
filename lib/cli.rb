@@ -33,7 +33,7 @@ class Cli
           puts @@pastel.red("You removed #{popped}")
         end
       elsif input == "quit" || input == "exit"
-        abort("Thank you for using Fridge-Clear")
+        abort(@@pastel.blue.bold("Thank you for using Fridge-Clear"))
       else
         ing_array << input
       end
@@ -55,7 +55,7 @@ class Cli
       puts @@pastel.red("You must see at least one recipe.")
       self.how_many
     elsif input == "quit" || input == "exit"
-      abort("Thank you for using Fridge-Clear")
+      abort(@@pastel.blue.bold("Thank you for using Fridge-Clear"))
     else
       Recipe.current.clear
       Api.get_recipes_from_ing(ing_array, input.to_i)
@@ -79,7 +79,7 @@ class Cli
     if input.to_i.between?(1, Recipe.current.length)
       @selection = Recipe.current[input.to_i-1]
     elsif input == "quit" || input == "exit"
-      abort("Thank you for using Fridge-Clear")
+      abort(@@pastel.blue.bold("Thank you for using Fridge-Clear"))
     else
       puts @@pastel.red("That is not a valid choice")
       self.get_recipe_choice
@@ -93,7 +93,7 @@ class Cli
     if input.to_i.between?(1, Recipe.all.length)
       @selection = Recipe.all[input.to_i-1]
     elsif input == "quit" || input == "exit"
-      abort("Thank you for using Fridge-Clear")
+      abort(@@pastel.blue.bold("Thank you for using Fridge-Clear"))
     else
       puts @@pastel.red("That is not a valid choice")
       self.get_recipe_choice_from_all
@@ -117,7 +117,7 @@ class Cli
     if input.to_i.between?(1, Recipe.retrieved.length)
       @selection = Recipe.retrieved[input.to_i-1]
     elsif input == "quit" || input == "exit"
-      abort("Thank you for using Fridge-Clear")
+      abort(@@pastel.blue.bold("Thank you for using Fridge-Clear"))
     else
       puts @@pastel.red("That is not a valid choice")
       self.get_recipe_choice_from_retrieved
@@ -160,7 +160,7 @@ class Cli
     when "4"
       self.get_ingredients
     when "5", "quit", "exit"
-      abort("Thank you for using Fridge-Clear")
+      abort(@@pastel.blue.bold("Thank you for using Fridge-Clear"))
     else
       puts @@pastel.red("Please enter a number that corresponds to a menu option")
       self.menu
