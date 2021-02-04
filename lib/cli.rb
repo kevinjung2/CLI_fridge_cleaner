@@ -62,7 +62,7 @@ class Cli
     puts "Enter the number of the recipe you would like to see"
     input = gets.to_i
     if input.between?(1, Recipe.all.length)
-      selection = Recipe.all[input].id
+      selection = Recipe.all[input-1].id
     else
       puts "That is not a valid choice"
       self.get_recipe_choice
