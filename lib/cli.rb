@@ -20,7 +20,7 @@ class Cli
     puts @@pastel.cyan.bold("Please enter ingredients that you would like to cook, one at a time. when finished enter 'done'.\n                           "+ @@pastel.red(" Or enter quit at anytime to leave."))
     ing_array = []
     input = gets.strip
-    while input != "done"
+    while input != "done" || input != ""
       if input == "undo"
         if ing_array.size == 0
           begin
