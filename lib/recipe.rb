@@ -1,7 +1,8 @@
 class Recipe
-  attr_accessor :title, :id, :used_ing, :recipe_link
+  attr_accessor :title, :id, :used_ing, :recipe_link, :instructions
 
   @@all = []
+  @@retrieved = []
 
   def initialize
     self.save
@@ -33,10 +34,15 @@ class Recipe
   def self.all
     @@all
   end
-
   #add #self.find_by_id
   def self.find_by_id(id)
     @@all.find { |r| r.id == id }
   end
   #add #info_from_hash
+  def info_from_hash(hash)
+    self.recipe_link = hash["sourceUrl"]
+    self.ingredients = hash["extendedIngredients"].collect {|ing| ing["originalString"] }
+    self.instructions = hash["instructions"]
+    @@retrieved << self
+  end
 end
