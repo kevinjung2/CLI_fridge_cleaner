@@ -18,5 +18,6 @@ class Api
       response = HTTParty.get(url)
       current = Recipe.find_by_id(id)
       current.info_from_hash(response)
+      current
     end
 end

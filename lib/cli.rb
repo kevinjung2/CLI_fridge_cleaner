@@ -71,9 +71,20 @@ class Cli
   end
 
   def retrieve_recipe
-    Api.get_recipe(@selection)
+    recipe = Api.get_recipe(@selection)
+    self.display_recipe(recipe)
   end
-  #asks the user which recipe they would like to cook
+
+  def display_recipe(recipe)
+    puts "------------------------------"
+    puts "#{recipe.title}"
+    puts "------------------------------"
+    recipe.ingredients.each {|ing| puts ing}
+    puts "------------------------------"
+    puts recipe.instructions
+    puts "------------------------------"
+    puts TTY::Link.link_to("Recipe source link", recipe.recipe_link)
+  end
   #returns that recipe
   #asks if the user would like to see the list of recipes again, put more ingredients in, or exit
 end
