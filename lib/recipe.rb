@@ -3,6 +3,7 @@ class Recipe
 
   @@all = []
   @@retrieved = []
+  @@current = []
 
   def initialize
     self.save
@@ -21,9 +22,10 @@ class Recipe
 
   def save
     @@all << self
+    @@current << self
   end
 
-  def self.titles
+  def self.all_titles
     @@all.collect { |r| r.title }
   end
 
@@ -44,5 +46,9 @@ class Recipe
     self.ingredients = hash["extendedIngredients"].collect {|ing| ing["originalString"] }
     self.instructions = hash["instructions"]
     @@retrieved << self
+  end
+
+  def self.current
+    @@current
   end
 end
