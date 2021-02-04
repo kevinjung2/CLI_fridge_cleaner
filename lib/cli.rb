@@ -53,10 +53,15 @@ class Cli
       self.display_recipe_list
     end
   end
-  #puts the list of recipe names returned from the Api
+  #puts the list of current recipe names returned from the Api
   def display_recipe_list
     Recipe.current_titles.each.with_index(1) { |title, inx| puts "#{inx}. #{title}" }
     self.get_recipe_choice
+  end
+  #puts the list of all recipe names returned from the Api
+  def display_all_recipe_list
+    Recipe.all_titles.each.with_index(1) { |title, inx| puts "#{inx}. #{title}" }
+    self.get_recipe_choice_from_all
   end
   #asks the user for which recipe they would like to cook
   def get_recipe_choice
@@ -90,10 +95,11 @@ class Cli
   #displays program menu
   def menu
     puts "Would you like to:"
-    puts "1. See the list of recipes"
-    puts "2. See a recipe again"
-    puts "3. Enter new ingredients"
-    puts "4. Quit Fridge Clear"
+    puts "1. See the most recent list of recipes"
+    puts "2. See a list of all the recipes you have found"
+    puts "3. See a recipe again"
+    puts "4. Enter new ingredients"
+    puts "5. Quit Fridge Clear"
     self.menu_selection
   end
   #retrieves selection for program menu
@@ -103,10 +109,12 @@ class Cli
     when "1"
       self.display_recipe_list
     when "2"
-      self.display_recipe(Api.get_recipe(@selection))
+      self.display_all_recipe_list
     when "3"
-      self.get_ingredients
+      self.display_recipe(Api.get_recipe(@selection))
     when "4"
+      self.get_ingredients
+    when "5"
       abort("Thank you for using Fridge-Clear")
     else
       puts "Please enter a number that corresponds to a menu option"
