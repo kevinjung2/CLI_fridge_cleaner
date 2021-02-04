@@ -33,6 +33,10 @@ class Recipe
     @@all.collect { |r| r.title }
   end
 
+  def self.retrieved_titles
+    @@retrieved.collect { |r| r.title }
+  end
+
   def self.id_from_title(title)
     @@all.find { |r| r.title == title }.id
   end

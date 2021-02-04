@@ -64,20 +64,20 @@ class Cli
   end
   #puts the list of current recipe names returned from the Api
   def display_recipe_list
-    Recipe.current_titles.each.with_index(1) { |title, inx| puts @@pastel.blue("#{inx}. #{title}") }
+    Recipe.current_titles.each.with_index(1) { |title, inx| puts @@pastel.cyan.on_magenta("#{inx}. #{title}") }
     self.get_recipe_choice
   end
   #puts the list of all recipe names returned from the Api
   def display_all_recipe_list
-    Recipe.all_titles.each.with_index(1) { |title, inx| puts @@pastel.on_green("#{inx}. #{title}") }
+    Recipe.all_titles.each.with_index(1) { |title, inx| puts @@pastel.cyan.on_magenta("#{inx}. #{title}") }
     self.get_recipe_choice_from_all
   end
   #asks the user for which recipe they would like to cook
   def get_recipe_choice
     puts @@pastel.cyan.bold("Enter the number of the recipe you would like to see")
     input = gets.to_i
-    if input.between?(1, Recipe.current.length)
-      @selection = Recipe.current[input-1]
+    if input.to_i.between?(1, Recipe.current.length)
+      @selection = Recipe.current[input.to_i-1]
     elsif input == "quit" || input == "exit"
       abort("Thank you for using Fridge-Clear")
     else
@@ -89,9 +89,9 @@ class Cli
   #asks the user for which recipe they would like to cook from a list of all recipes
   def get_recipe_choice_from_all
     puts @@pastel.cyan.bold("Enter the number of the recipe you would like to see")
-    input = gets.to_i
-    if input.between?(1, Recipe.all.length)
-      @selection = Recipe.all[input-1]
+    input = gets.strip
+    if input.to_i.between?(1, Recipe.all.length)
+      @selection = Recipe.all[input.to_i-1]
     elsif input == "quit" || input == "exit"
       abort("Thank you for using Fridge-Clear")
     else
@@ -105,6 +105,25 @@ class Cli
     Recipe.retrieved.include?(@selection) ? recipe = @selection : recipe = Api.get_recipe(@selection)
     self.display_recipe(recipe)
   end
+  #displays a list of the recipes already retrieved from the API
+  def display_retrieved_recipes
+    Recipe.retrieved_titles.each.with_index(1) { |title, inx| puts @@pastel.cyan.on_magenta("#{inx}. #{title}") }
+    self.get_recipe_choice_from_retrieved
+  end
+  #asks the user for which recipe they would like to cook from a list of retrieved recipes
+  def get_recipe_choice_from_retrieved
+    puts @@pastel.cyan.bold("Enter the number of the recipe you would like to see")
+    input = gets.strip
+    if input.to_i.between?(1, Recipe.retrieved.length)
+      @selection = Recipe.retrieved[input.to_i-1]
+    elsif input == "quit" || input == "exit"
+      abort("Thank you for using Fridge-Clear")
+    else
+      puts @@pastel.red("That is not a valid choice")
+      self.get_recipe_choice_from_retrieved
+    end
+    self.retrieve_recipe
+  end
   #displays the recipe to the user
   def display_recipe(recipe)
     puts @@pastel.green("------------------------------")
@@ -114,7 +133,7 @@ class Cli
     puts @@pastel.green("------------------------------")
     puts @@pastel.on_blue("#{recipe.instructions}")
     puts @@pastel.green("------------------------------")
-    puts @@pastel.on_blue(TTY::Link.link_to("Recipe source link", recipe.recipe_link))
+    puts @@pastel.magenta(TTY::Link.link_to("Recipe source link", recipe.recipe_link))
     self.menu
   end
   #displays program menu
@@ -136,6 +155,7 @@ class Cli
     when "2"
       self.display_all_recipe_list
     when "3"
+      self.display_retrieved_recipes
       self.display_recipe(Api.get_recipe(@selection))
     when "4"
       self.get_ingredients
