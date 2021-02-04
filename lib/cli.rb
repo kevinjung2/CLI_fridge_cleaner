@@ -25,7 +25,8 @@ class Cli
             puts error.message
           end
         else
-          ing_array.pop
+          popped = ing_array.pop
+          puts "You removed #{popped}"
         end
       else
         ing_array << input
@@ -110,7 +111,7 @@ class Cli
     else
       puts "Please enter a number that corresponds to a menu option"
       self.menu
-    end 
+    end
   end
   #returns that recipe
   #asks if the user would like to see the list of recipes again, put more ingredients in, or exit
