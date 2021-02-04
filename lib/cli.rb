@@ -96,7 +96,22 @@ class Cli
     self.menu_selection
   end
 
-  
+  def menu_selection
+    input = gets.strip
+    case input
+    when "1"
+      self.display_recipe_list
+    when "2"
+      self.display_recipe(Api.get_recipe(@selection))
+    when "3"
+      self.get_ingredients
+    when "4"
+      abort("Thank you for using Fridge-Clear")
+    else
+      puts "Please enter a number that corresponds to a menu option"
+      self.menu
+    end 
+  end
   #returns that recipe
   #asks if the user would like to see the list of recipes again, put more ingredients in, or exit
 end
