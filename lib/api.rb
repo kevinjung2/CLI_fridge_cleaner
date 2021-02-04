@@ -12,9 +12,12 @@ class Api
       Recipe.new_from_arr_of_hashes(response)
     end
 
-    def self.get_recipe(recipe_id)
+    def self.get_recipe(recipe)
+      recipe_id = recipe.id
       url = "https://api.spoonacular.com/recipes/#{recipe_id}/information?apiKey=#{API_KEY}&includeNutrition=false"
       response = HTTParty.get(url)
+      current = Recipe.find_by_id(id)
+      current.info_from_hash(response)
       binding.pry
     end
 end
