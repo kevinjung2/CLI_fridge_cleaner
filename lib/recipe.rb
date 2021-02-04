@@ -33,4 +33,10 @@ class Recipe
   def self.all
     @@all
   end
+
+  #add #self.find_by_id
+  def self.find_by_id(id)
+    @@all.find { |r| r.id == id }
+  end
+  #add #info_from_hash
 end
