@@ -51,27 +51,27 @@ class Cli
       Api.get_recipes_from_ing(ing_array, input)
       self.display_recipe_list
     end
+  end
 
-    def display_recipe_list
-      recipe.titles.each.with_index(1) { |title, inx| puts "#{inx}. #{title}" }
+  def display_recipe_list
+    recipe.titles.each.with_index(1) { |title, inx| puts "#{inx}. #{title}" }
+    self.get_recipe_choice
+  end
+
+  def get_recipe_choice
+    puts "Enter the number of the recipe you would like to see"
+    input = gets.to_i
+    if input.between?(1, Recipe.all.length)
+      selection = Recipe.all[input].id
+    else
+      puts "That is not a valid choice"
       self.get_recipe_choice
     end
+    self.retrieve_recipe(selection)
+  end
 
-    def get_recipe_choice
-      puts "Enter the number of the recipe you would like to see"
-      input = gets.to_i
-      if input.between?(1, Recipe.all.length)
-        selection = Recipe.all[input].id
-      else
-        puts "That is not a valid choice"
-        self.get_recipe_choice
-      end
-      self.retrieve_recipe(selection)
-    end
-
-    def retrieve_recipe(recipe_id)
-      Api.get_recipe(recipe_id)
-    end
+  def retrieve_recipe(recipe_id)
+    Api.get_recipe(recipe_id)
   end
   #asks the user which recipe they would like to cook
   #returns that recipe
