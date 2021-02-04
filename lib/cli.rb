@@ -75,6 +75,18 @@ class Cli
     end
     self.retrieve_recipe
   end
+  #asks the user for which recipe they would like to cook from a list of all recipes
+  def get_recipe_choice_from_all
+    puts "Enter the number of the recipe you would like to see"
+    input = gets.to_i
+    if input.between?(1, Recipe.all.length)
+      @selection = Recipe.all[input-1]
+    else
+      puts "That is not a valid choice"
+      self.get_recipe_choice_from_all
+    end
+    self.retrieve_recipe
+  end
   #sends the choice to the Api to get information
   def retrieve_recipe
     recipe = Api.get_recipe(@selection)
