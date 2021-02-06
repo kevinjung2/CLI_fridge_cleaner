@@ -7,7 +7,7 @@ class Cli
 
   #initialize a new instance that starts the program
   def initialize
-    self.welcome
+    welcome
   end
 
   #says hello
@@ -16,7 +16,7 @@ class Cli
     puts @@pastel.cyan(@@font.write("            Welcome"))
     puts @@pastel.cyan(@@font.write("to Fridge-Clear"))
     puts @@pastel.green("----------------------------------------------------------------------------------------------------")
-    self.get_ingredients
+    get_ingredients
   end
 
   #asks the user which ingredients they would like to cook, and passes them to #how_many
@@ -37,7 +37,7 @@ class Cli
           puts @@pastel.red("You removed #{popped}")
         end
       elsif input == "quit" || input == "exit"
-        abort(@@pastel.blue.bold("Thank you for using Fridge-Clear"))
+        leave
       else
         ing_array << input
       end
@@ -46,9 +46,9 @@ class Cli
     end
     if ing_array.size == 0
       puts @@pastel.red("You must enter at least one ingredient!")
-      self.get_ingredients
+      get_ingredients
     else
-      self.how_many(ing_array)
+      how_many(ing_array)
     end
   end
 
@@ -58,20 +58,20 @@ class Cli
     input = gets.strip
     if input.to_i == 0
       puts @@pastel.red("You must see at least one recipe.")
-      self.how_many
+      how_many
     elsif input == "quit" || input == "exit"
-      abort(@@pastel.blue.bold("Thank you for using Fridge-Clear"))
+      leave
     else
       Recipe.current.clear
       Api.get_recipes_from_ing(ing_array, input.to_i)
-      self.display_recipe_list(Recipe.current_titles, Recipe.current)
+      display_recipe_list(Recipe.current_titles, Recipe.current)
     end
   end
 
   #puts the list of recipe names returned from the Api, either from the @@all, @@current, or @@retrieved arrays
   def display_recipe_list(list, array)
     list.each.with_index(1) { |title, inx| puts @@pastel.magenta("#{inx}. #{title}") }
-    self.get_recipe_choice(array)
+    get_recipe_choice(array)
   end
 
   #asks the user for which recipe they would like to cook
@@ -81,18 +81,18 @@ class Cli
     if input.to_i.between?(1, array.length)
       @selection = array[input.to_i-1]
     elsif input == "quit" || input == "exit"
-      abort(@@pastel.blue.bold("Thank you for using Fridge-Clear"))
+      leave
     else
       puts @@pastel.red("That is not a valid choice")
-      self.get_recipe_choice(array)
+      get_recipe_choice(array)
     end
-    self.retrieve_recipe
+    retrieve_recipe
   end
 
   #sends the choice to the Api to get information
   def retrieve_recipe
     Recipe.retrieved.include?(@selection) ? recipe = @selection : recipe = Api.get_recipe(@selection)
-    self.display_recipe(recipe)
+    display_recipe(recipe)
   end
 
   #displays the recipe to the user
@@ -105,7 +105,7 @@ class Cli
     puts @@pastel.on_blue("#{recipe.instructions}")
     puts @@pastel.green("------------------------------")
     puts @@pastel.magenta(TTY::Link.link_to("Recipe source link", recipe.recipe_link))
-    self.menu
+    menu
   end
 
   #displays program menu
@@ -116,7 +116,7 @@ class Cli
     puts @@pastel.cyan("3. See a recipe again")
     puts @@pastel.cyan("4. Enter new ingredients")
     puts @@pastel.red("5. Quit Fridge Clear")
-    self.menu_selection
+    menu_selection
   end
 
   #retrieves selection for program menu
@@ -124,18 +124,23 @@ class Cli
     input = gets.strip
     case input
     when "1"
-      self.display_recipe_list(Recipe.current_titles, Recipe.current)
+      display_recipe_list(Recipe.current_titles, Recipe.current)
     when "2"
-      self.display_recipe_list(Recipe.all_titles, Recipe.all)
+      display_recipe_list(Recipe.all_titles, Recipe.all)
     when "3"
-      self.display_recipe_list(Recipe.retrieved_titles, Recipe.retrieved)
+      display_recipe_list(Recipe.retrieved_titles, Recipe.retrieved)
     when "4"
-      self.get_ingredients
+      get_ingredients
     when "5", "quit", "exit"
-      abort(@@pastel.blue.bold("Thank you for using Fridge-Clear"))
+      leave
     else
       puts @@pastel.red("Please enter a number that corresponds to a menu option")
-      self.menu
+      menu
     end
+  end
+
+  #resposible for exiting the program
+  def leave
+    abort(@@pastel.blue.bold("Thank you for using Fridge-Clear"))
   end
 end
