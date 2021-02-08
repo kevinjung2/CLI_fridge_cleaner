@@ -111,27 +111,26 @@ class Cli
   #displays program menu
   def menu
     puts @@pastel.cyan("Would you like to:")
-    puts @@pastel.cyan("1. See the most recent list of recipes")
-    puts @@pastel.cyan("2. See a list of all the recipes you have found")
-    puts @@pastel.cyan("3. See a recipe again")
-    puts @@pastel.cyan("4. Enter new ingredients")
+    puts @@pastel.cyan("1. See the most " + @@pastel.blue("recent") + " list of recipes")
+    puts @@pastel.cyan("2. See a list of " + @@pastel.blue("all") + " the recipes you have found")
+    puts @@pastel.cyan("3. See a recipe " + @@pastel.blue("again"))
+    puts @@pastel.cyan("4. Enter " + @@pastel.blue("new") + " ingredients")
     puts @@pastel.red("5. Quit Fridge Clear")
     menu_selection
   end
-
   #retrieves selection for program menu
   def menu_selection
     input = gets.strip
     case input
-    when "1"
+    when "1", "recent"
       display_recipe_list(Recipe.current_titles, Recipe.current)
-    when "2"
+    when "2", "all"
       display_recipe_list(Recipe.all_titles, Recipe.all)
-    when "3"
+    when "3", "again"
       display_recipe_list(Recipe.retrieved_titles, Recipe.retrieved)
-    when "4"
+    when "4", "new"
       get_ingredients
-    when "5", "quit", "exit"
+    when "5", "quit", "exit", "Quit", "Exit"
       leave
     else
       puts @@pastel.red("Please enter a number that corresponds to a menu option")
