@@ -4,7 +4,7 @@ Fridge clear is a project created to help you decide what to make for dinner usi
 
 ### Installing
 
-First you will need to clone the repository to your local machine.
+First you will need to fork and clone the repository to your local machine.
 
   ```git clone https://github.com/kevinjung2/CLI_fridge_cleaner.git```
 
