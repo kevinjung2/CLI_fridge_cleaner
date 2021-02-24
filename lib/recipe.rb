@@ -1,5 +1,5 @@
 class Recipe
-  attr_accessor :title, :id, :used_ing, :recipe_link, :instructions, :ingredients
+  attr_accessor :title, :recipe_id, :used_ing, :recipe_link, :instructions, :ingredients
 
   @@all = []
   @@retrieved = []
@@ -14,7 +14,7 @@ class Recipe
   def self.new_from_hash(hash)
     new = self.new
     new.title = hash["title"]
-    new.id = hash["id"]
+    new.recipe_id = hash["id"]
     new.used_ing = hash["usedIngredientCount"]
   end
 
@@ -61,7 +61,7 @@ class Recipe
 
   #add #self.find_by_id
   def self.find_by_id(id)
-    @@all.find { |r| r.id == id }
+    @@all.find { |r| r.recipe_id == id }
   end
 
   #add #info_from_hash

@@ -118,6 +118,7 @@ class Cli
     puts @@pastel.red("5. Quit Fridge Clear")
     menu_selection
   end
+
   #retrieves selection for program menu
   def menu_selection
     input = gets.strip
